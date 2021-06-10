@@ -5,7 +5,7 @@ ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 GITHUB_PAT=$GITHUB_PAT
 # Run commands as root
 USER root
 # create non-priviledged user
-RUN useradd -m -s /usr/sbin/nologin spacial
+RUN useradd -d /shiny/dashboard -s /usr/sbin/nologin spacial
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \ 
 	&& apt-get install -y --no-install-recommends \
