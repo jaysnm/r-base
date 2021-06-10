@@ -4,8 +4,6 @@ ARG GITHUB_PAT
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 GITHUB_PAT=$GITHUB_PAT
 # Run commands as root
 USER root
-# create non-priviledged user
-RUN useradd -d /shiny/dashboard -s /usr/sbin/nologin spacial
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \ 
 	&& apt-get install -y --no-install-recommends \
@@ -37,5 +35,9 @@ RUN ln -fs /usr/share/zoneinfo/Africa/Nairobi /etc/localtime \
 	&& mkdir -p /shiny/dashboard
 # home directory
 WORKDIR /shiny/dashboard
+# create non-priviledged user
+RUN useradd -d /shiny/dashboard -s /usr/sbin/nologin jovial
+# Run as non-privileged user
+USER jovial
 EXPOSE 3838
 CMD ["R"]
