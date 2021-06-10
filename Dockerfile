@@ -37,7 +37,5 @@ RUN ln -fs /usr/share/zoneinfo/Africa/Nairobi /etc/localtime \
 	&& mkdir -p /shiny/dashboard
 # home directory
 WORKDIR /shiny/dashboard
-# run as non-privileged user
-USER spacial
 EXPOSE 3838
 CMD ["R"]
