@@ -1,7 +1,6 @@
 FROM ubuntu:focal
 LABEL maintainer "Jason Kinyua <J.M.Kinyua@cgiar.org>" unit "CIFOR-ICRAF SPACIAL" unit_head "Tor Vagen <T.VAGEN@cgiar.org>"
-ARG GITHUB_PAT
-ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 GITHUB_PAT=$GITHUB_PAT
+ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 # Run commands as root
 USER root
 ENV DEBIAN_FRONTEND noninteractive
@@ -29,7 +28,7 @@ RUN ln -fs /usr/share/zoneinfo/Africa/Nairobi /etc/localtime \
 	apt-get install -y --no-install-recommends libgdal-dev libgeos-dev libgit2-dev \
 	libproj-dev libxml2-dev libsqlite3-dev gdal-bin libudunits2-dev libfontconfig1-dev \
 	libcairo2-dev libcgal-dev libglu1-mesa-dev libx11-dev libfreetype6-dev libxt-dev libharfbuzz-dev libfribidi-dev\
-	&& Rscript -e "install.packages(c('remotes','rmarkdown','knitr','raster','rgdal', 'shiny'))" \
+	&& Rscript -e "install.packages(c('remotes','rmarkdown','knitr','raster','rgdal','sf','sp','shiny'))" \
 	&& Rscript -e "remotes::install_github(c('ramnathv/htmlwidgets','rstudio/htmltools','tidyverse/ggplot2'))" \
 	&& rm -rf /tmp/* /var/lib/apt/lists/* \
 	&& mkdir -p /shiny/dashboard
