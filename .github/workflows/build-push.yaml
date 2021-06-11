@@ -32,7 +32,7 @@ jobs:
           push: true # push to docker registry
           tags: ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USER }}/r-base # docker image tag
           context: .
-          file: ./DOCKERFILE
+          file: ./Dockerfile
 
       - name: Logout of docker registry
         run: docker logout
