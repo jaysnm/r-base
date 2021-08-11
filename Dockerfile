@@ -1,5 +1,7 @@
 FROM ubuntu:focal
-LABEL maintainer "Jason Kinyua <J.M.Kinyua@cgiar.org>" unit "CIFOR-ICRAF SPACIAL" unit_head "Tor Vagen <T.VAGEN@cgiar.org>"
+LABEL maintainer "Jason Kinyua <J.M.Kinyua@cgiar.org>" 
+LABEL unit "CIFOR-ICRAF SPACIAL" 
+LABEL unit_head "Tor Vagen <T.VAGEN@cgiar.org>"
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 # Run commands as root
 USER root
