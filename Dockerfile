@@ -30,8 +30,8 @@ RUN ln -fs /usr/share/zoneinfo/Africa/Nairobi /etc/localtime \
 	apt-get install -y --no-install-recommends pkg-config libgdal-dev libgeos-dev libgit2-dev \
 	libproj-dev libxml2-dev libsqlite3-dev gdal-bin libudunits2-dev libfontconfig1-dev \
 	libcairo2-dev libcgal-dev libglu1-mesa-dev libx11-dev libfreetype6-dev libxt-dev libharfbuzz-dev libfribidi-dev\
-	&& Rscript -e "install.packages(c('remotes','rmarkdown','knitr','raster','rgdal','shiny'))" \
-	&& Rscript -e "remotes::install_github(c('ramnathv/htmlwidgets','rstudio/htmltools','tidyverse/ggplot2'))" \
+	&& Rscript -e "install.packages(c('devtools','rmarkdown','knitr','raster','rgdal','shiny'))" \
+	&& Rscript -e "devtools::install_github(c('ramnathv/htmlwidgets','rstudio/htmltools','tidyverse/ggplot2'))" \
 	&& rm -rf /tmp/* /var/lib/apt/lists/* \
 	&& mkdir -p /shiny/dashboard
 # home directory
