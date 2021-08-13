@@ -1,5 +1,6 @@
 # R-base Docker Image  
 
+![r-base image](https://github.com/jaysnm/r-base/actions/workflows/build-push.yaml/badge.svg)
 ![Supported R](https://img.shields.io/badge/R-latest-blue?style=plastic&logo=R)
 ![Docker Platform](https://img.shields.io/badge/Docker-latest-blue?style=plastic&logo=docker)  
 
@@ -16,6 +17,10 @@ FROM jaysnm/r-base
 CMD ...
 ```
 
+## CI/CD build chain  
+
+The `Dockerfile` in this repository is automatically built using [Github Actions](https://docs.github.com/en/actions) with resulting image push to [Docker Hub](https://hub.docker.com/r/jaysnm/r-base).
+
 ## License  
 
 The Dockerfile in this repository is licensed under [Creative Commons copyright](https://github.com/jaysnm/r-base/License).
@@ -23,3 +28,5 @@ The Dockerfile in this repository is licensed under [Creative Commons copyright]
 ## Contribution  
 
 See [CONTRIBUTING.md](https://github.com/jaysnm/r-base/CONTRIBUTING.md) and [open an issue](https://github.com/jaysnm/r-base/issues)
+
+:go
