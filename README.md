@@ -28,5 +28,3 @@ The Dockerfile in this repository is licensed under [Creative Commons copyright]
 ## Contribution  
 
 See [CONTRIBUTING.md](https://github.com/jaysnm/r-base/CONTRIBUTING.md) and [open an issue](https://github.com/jaysnm/r-base/issues)
-
-:go
