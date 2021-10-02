@@ -4,9 +4,9 @@ LABEL maintainer "Jason Kinyua <jaysnmury@gmail.com>"
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive
 
 # configure base image with fundamental utils
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils tzdata locales libssl-dev \
-	apt-transport-https gnupg2 ca-certificates && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-	&& locale-gen en_US.utf8 && /usr/sbin/update-locale && dpkg-reconfigure tzdata
+RUN apt-get update && apt-get install -y --no-install-recommends locales libssl-dev \
+	libcurl4-openssl-dev libfontconfig1-dev apt-transport-https gnupg2 ca-certificates \ 
+	&& echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen && update-locale ${LANG}
 
 # Configure local timezone
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list \
@@ -22,16 +22,18 @@ RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B827C12C2D425E227EDCA75089EBE08314DF160 \
 	&& apt-get update && \ 
 	apt-get install -y --no-install-recommends pkg-config libgdal-dev libgeos-dev libgit2-dev \
-	libproj-dev libxml2-dev libsqlite3-dev gdal-bin libudunits2-dev libfontconfig1-dev libcurl4-openssl-dev \
-	libcairo2-dev libcgal-dev libglu1-mesa-dev libx11-dev libfreetype6-dev libxt-dev libharfbuzz-dev libfribidi-dev\
+	libproj-dev libxml2-dev libsqlite3-dev gdal-bin libudunits2-dev  libcairo2-dev libcgal-dev \
+	libglu1-mesa-dev libx11-dev libfreetype6-dev libxt-dev libharfbuzz-dev libfribidi-dev\
 	&& Rscript -e "install.packages(c('devtools','rmarkdown','knitr','raster','rgdal','shiny'))" \
 	&& Rscript -e "devtools::install_github(c('ramnathv/htmlwidgets','rstudio/htmltools','tidyverse/ggplot2'))" \
-	&& rm -rf /tmp/* /var/lib/apt/lists/* \
-	&& mkdir -p /shiny/dashboard
+	&& rm -rf /tmp/* /var/lib/apt/lists/* && mkdir -p /shiny/dashboard
+
 # home directory
 WORKDIR /shiny/dashboard
+
 # create non-priviledged user
 RUN useradd -d /shiny/dashboard -s /usr/sbin/nologin jovial
+
 # Run as non-privileged user
 USER jovial
 EXPOSE 3838
