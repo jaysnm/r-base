@@ -17,14 +17,13 @@ USER build
 
 RUN git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin \
   && cd /tmp/yay-bin && makepkg -si --noconfirm --needed && cd / && rm -rf /tmp/yay-bin \
-  && yay -Syu && yay -R make automake autoconf --noconfirm \
-  && yay -S --noconfirm fontconfig curl-git openssl-git automake-git make-git autoconf-git 
+  && yay -Syu && yay -S --noconfirm fontconfig libcurl3-gnutls
 
 ENV CRAN_PACKAGES c('devtools','rmarkdown','knitr','raster','rgdal','shiny')
 
 # configure system libs
-RUN yay -S --noconfirm gdal gdal-git geos geos-git proj proj-git libgit2-git libxml2-git \ 
-  && libspatialite-devel udunits units cairo-git cgal-git glu-git libxt harfbuzz-git fribidi r \
+RUN yay -S --noconfirm --needed gdal gdal geos proj libgit2 libxml2 sqlite-utils \ 
+  libspatialite-devel udunits units cairo cgal glu libxt harfbuzz fribidi r \
   && Rscript -e "install.packages(Sys.getenv('CRAN_PACKAGES'), repos='https://cloud.r-project.org/', deps=T, type='source')" \
   && Rscript -e "devtools::install_github(c('ramnathv/htmlwidgets','rstudio/htmltools','tidyverse/ggplot2'))" \
   && rm -rf /tmp/* /var/lib/apt/lists/*
