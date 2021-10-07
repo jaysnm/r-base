@@ -19,7 +19,7 @@ CMD ...
 
 ## CI/CD build chain  
 
-The `Dockerfile` in this repository is automatically built using [Github Actions](https://docs.github.com/en/actions) with resulting image push to [Docker Hub](https://hub.docker.com/r/jaysnm/r-base).
+The `Dockerfile` in this repository is automatically built using [Github Actions](https://docs.github.com/en/actions) with resulting image pushed to [Docker Hub](https://hub.docker.com/r/jaysnm/r-base).
 
 ## License  
 
