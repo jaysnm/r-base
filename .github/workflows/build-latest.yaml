@@ -1,0 +1,31 @@
+name: latest-r-base
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cancel Previous Workflow
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Login into docker registry
+        run: echo ${{ secrets.REGISTRY_TOKEN }} | docker login ${{ secrets.REGISTRY_URL }} -u ${{ secrets.REGISTRY_USER }} --password-stdin
+
+      - name: Build and push the docker image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USER }}/r-base
+          context: .
+          file: ./ubuntu.Dockerfile
+
+      - name: Logout of docker registry
+        run: docker logout
