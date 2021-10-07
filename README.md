@@ -1,6 +1,8 @@
 # R-base Docker Image  
 
-![r-base image](https://github.com/jaysnm/r-base/actions/workflows/build-push.yaml/badge.svg)
+![latest](https://github.com/jaysnm/r-base/actions/workflows/build-latest.yaml/badge.svg)
+![ubuntu](https://github.com/jaysnm/r-base/actions/workflows/build-ubuntu.yml/badge.svg)
+![debian](https://github.com/jaysnm/r-base/actions/workflows/build-debian.yml/badge.svg)
 ![Supported R](https://img.shields.io/badge/R-latest-blue?style=plastic&logo=R)
 ![Docker Platform](https://img.shields.io/badge/Docker-latest-blue?style=plastic&logo=docker)  
 
