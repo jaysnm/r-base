@@ -2,6 +2,8 @@ FROM fedora
 
 LABEL maintainer "Jason Kinyua <jaysnmury@gmail.com>"
 
+ENV LIB123=TRUE
+
 # configure locale and timezone libs
 RUN dnf update -y && echo "%_install_langs all" > /etc/rpm/macros.image-language-conf \
   && dnf install -y openssl-devel libcurl-devel glibc-common langpacks-en glibc-langpack-en 
