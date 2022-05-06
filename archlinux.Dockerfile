@@ -1,7 +1,7 @@
 FROM archlinux
 
 LABEL maintainer "Jason Kinyua <jaysnmury@gmail.com>"
-ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
 
 # configure locale and timezone libs
 RUN pacman -Syu --noconfirm && pacman -S --noconfirm --needed freetype2 git base-devel \
@@ -17,16 +17,19 @@ USER build
 
 RUN git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin \
   && cd /tmp/yay-bin && makepkg -si --noconfirm --needed && cd / && rm -rf /tmp/yay-bin \
-  && yay -Syu && yay -S --noconfirm fontconfig libcurl3-gnutls
-
-ENV CRAN_PACKAGES c('devtools','rmarkdown','knitr','raster','rgdal','shiny')
+  && yay -Syu --noconfirm && yay -S --noconfirm --needed fontconfig libcurl3-gnutls
 
 # configure system libs
-RUN yay -S --noconfirm --needed gdal gdal geos proj libgit2 libxml2 sqlite-utils \ 
-  libspatialite-devel udunits units cairo cgal glu libxt harfbuzz fribidi r \
-  && Rscript -e "install.packages(Sys.getenv('CRAN_PACKAGES'), repos='https://cloud.r-project.org/', deps=T, type='source')" \
-  && Rscript -e "devtools::install_github(c('ramnathv/htmlwidgets','rstudio/htmltools','tidyverse/ggplot2'))" \
-  && rm -rf /tmp/* /var/lib/apt/lists/*
+RUN yay -S --noconfirm --needed gdal gdal geos proj libgit2 libxml2 libspatialite \ 
+  udunits units texlive-core cairo cgal glu libxt harfbuzz fribidi rust imagemagick r
+
+COPY requirements.R /tmp/requirements.R
+
+RUN mkdir -p $HOME/.R/lib && export R_REMOTES_NO_ERRORS_FROM_WARNINGS=true && export R_LIBS_USER=$HOME/.R/lib && Rscript /tmp/requirements.R
+
+USER root
+
+RUN rm -rf /tmp/*
 
 # set working directory
 WORKDIR /shiny/dashboard

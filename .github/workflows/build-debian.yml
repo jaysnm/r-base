@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths: # rebuild when debian image is modified
+      - "debian.Dockerfile"
 
 jobs:
   build-and-push:
